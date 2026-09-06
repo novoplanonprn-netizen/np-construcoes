@@ -1,0 +1,1282 @@
+<title>NP Construções</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ---------- tokens ---------- */
+:root{
+  color-scheme: light;
+  --paper:#f5f2e9;
+  --surface:#ffffff;
+  --surface-2:#fbf9f3;
+  --ink:#1c2027;
+  --ink-secondary:#5c584f;
+  --ink-muted:#8a8474;
+  --line:rgba(28,32,39,.12);
+  --line-strong:rgba(28,32,39,.22);
+
+  --navy-950:#10141b;
+  --navy-900:#161d28;
+  --navy-800:#1e2735;
+  --navy-700:#2a3546;
+  --navy-600:#3a4a63;
+  --on-navy:#eef1f5;
+  --on-navy-muted:#a9b3c2;
+
+  --amber-300:#f2c569;
+  --amber-500:#e0a526;
+  --amber-600:#b9860e;
+  --amber-tint:#fbead0;
+
+  --status-good:#0ca30c;
+  --status-good-tint:#e3f6df;
+  --status-warning:#c98500;
+  --status-warning-tint:#fdedcb;
+  --status-critical:#d03b3b;
+  --status-critical-tint:#fbe1e1;
+
+  --cat-1:#2a78d6; --cat-2:#eb6834; --cat-3:#1baf7a;
+  --cat-4:#c98500; --cat-5:#e87ba4; --cat-6:#238a23;
+
+  --shadow-sm:0 1px 2px rgba(23,29,39,.07),0 1px 1px rgba(23,29,39,.05);
+  --shadow-md:0 10px 28px rgba(23,29,39,.12),0 2px 6px rgba(23,29,39,.06);
+  --radius-s:8px; --radius-m:14px; --radius-l:22px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --paper:#0d1015;
+    --surface:#161b22;
+    --surface-2:#1b212a;
+    --ink:#edeee9;
+    --ink-secondary:#b9bcc2;
+    --ink-muted:#82868f;
+    --line:rgba(255,255,255,.11);
+    --line-strong:rgba(255,255,255,.2);
+    --navy-950:#0a0d12;
+    --navy-900:#111620;
+    --navy-800:#182130;
+    --navy-700:#212e42;
+    --navy-600:#2e3f59;
+    --on-navy:#eef1f5;
+    --on-navy-muted:#a9b3c2;
+    --amber-300:#f2c569;
+    --amber-500:#f0b93a;
+    --amber-600:#f7c85c;
+    --amber-tint:#3a2c10;
+    --status-good:#1abb1a;
+    --status-good-tint:#123317;
+    --status-warning:#fab219;
+    --status-warning-tint:#3a2c0c;
+    --status-critical:#e66767;
+    --status-critical-tint:#3a1414;
+    --cat-1:#3987e5; --cat-2:#e07340; --cat-3:#22b881;
+    --cat-4:#dc9a1c; --cat-5:#e58cb0; --cat-6:#3aa23a;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.5);
+    --shadow-md:0 14px 34px rgba(0,0,0,.5);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --paper:#0d1015;
+  --surface:#161b22;
+  --surface-2:#1b212a;
+  --ink:#edeee9;
+  --ink-secondary:#b9bcc2;
+  --ink-muted:#82868f;
+  --line:rgba(255,255,255,.11);
+  --line-strong:rgba(255,255,255,.2);
+  --navy-950:#0a0d12;
+  --navy-900:#111620;
+  --navy-800:#182130;
+  --navy-700:#212e42;
+  --navy-600:#2e3f59;
+  --on-navy:#eef1f5;
+  --on-navy-muted:#a9b3c2;
+  --amber-300:#f2c569;
+  --amber-500:#f0b93a;
+  --amber-600:#f7c85c;
+  --amber-tint:#3a2c10;
+  --status-good:#1abb1a;
+  --status-good-tint:#123317;
+  --status-warning:#fab219;
+  --status-warning-tint:#3a2c0c;
+  --status-critical:#e66767;
+  --status-critical-tint:#3a1414;
+  --cat-1:#3987e5; --cat-2:#e07340; --cat-3:#22b881;
+  --cat-4:#dc9a1c; --cat-5:#e58cb0; --cat-6:#3aa23a;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.5);
+  --shadow-md:0 14px 34px rgba(0,0,0,.5);
+}
+
+/* ---------- base ---------- */
+*{box-sizing:border-box;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  font-size:15px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{
+  font-family:'Archivo', system-ui, sans-serif;
+  font-weight:800;
+  letter-spacing:-.01em;
+  text-wrap:balance;
+  color:var(--ink);
+  margin:0;
+}
+p{margin:0;}
+a{color:inherit;}
+button{font-family:inherit;}
+::selection{background:var(--amber-300); color:#1c1200;}
+.mono{font-family:'IBM Plex Mono', ui-monospace, monospace;}
+.tabular{font-variant-numeric:tabular-nums;}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+.view[hidden]{display:none !important;}
+.subview[hidden]{display:none !important;}
+svg{display:block;}
+
+/* ---------- ribbon / toast ---------- */
+.proto-ribbon{
+  background:var(--navy-950); color:var(--on-navy-muted);
+  text-align:center; font-size:12.5px; letter-spacing:.04em;
+  padding:7px 12px; text-transform:uppercase; font-weight:600;
+  border-bottom:1px solid var(--line);
+}
+.proto-ribbon b{color:var(--amber-300); font-weight:700;}
+.toast{
+  position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(0);
+  background:var(--navy-900); color:var(--on-navy);
+  padding:12px 20px; border-radius:var(--radius-s); box-shadow:var(--shadow-md);
+  font-size:13.5px; z-index:200; max-width:min(90vw,420px); text-align:center;
+  border:1px solid rgba(255,255,255,.08);
+}
+.toast[hidden]{display:none;}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  border-radius:999px; border:1px solid transparent; cursor:pointer;
+  font-weight:600; font-size:14px; padding:10px 20px; transition:transform .12s ease, box-shadow .12s ease, background .15s ease;
+  white-space:nowrap;
+}
+.btn:active{transform:translateY(1px);}
+.btn:focus-visible{outline:2px solid var(--amber-500); outline-offset:2px;}
+.btn-lg{padding:14px 26px; font-size:15.5px;}
+.btn-amber{background:var(--amber-500); color:#241a03;}
+.btn-amber:hover{background:var(--amber-600); box-shadow:var(--shadow-sm);}
+.btn-ghost{background:transparent; color:var(--on-navy); border-color:transparent;}
+.btn-ghost:hover{background:rgba(255,255,255,.08);}
+.btn-outline{background:transparent; color:var(--on-navy); border-color:rgba(255,255,255,.35);}
+.btn-outline:hover{border-color:rgba(255,255,255,.6);}
+.btn-solid{background:var(--navy-900); color:var(--on-navy);}
+.btn-solid:hover{background:var(--navy-800);}
+.btn-line{background:var(--surface); color:var(--ink); border-color:var(--line-strong);}
+.btn-line:hover{border-color:var(--ink-muted);}
+.btn-sm{padding:7px 14px; font-size:13px;}
+.icon-btn{
+  width:38px; height:38px; display:inline-flex; align-items:center; justify-content:center;
+  border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--ink-secondary);
+  cursor:pointer;
+}
+.icon-btn:hover{border-color:var(--line-strong); color:var(--ink);}
+
+/* ================= LANDING ================= */
+.site-header{position:sticky; top:0; z-index:40; background:rgba(16,20,27,.9); backdrop-filter:blur(10px); border-bottom:1px solid rgba(255,255,255,.08);}
+.site-header-inner{display:flex; align-items:center; justify-content:space-between; height:72px;}
+.brand{display:flex; align-items:center; gap:11px; text-decoration:none; cursor:pointer; background:none; border:none;}
+.brand-mark{
+  width:38px; height:38px; border-radius:10px; background:linear-gradient(155deg,var(--navy-700),var(--navy-900));
+  color:var(--amber-300); font-family:'Archivo',sans-serif; font-weight:800; font-size:15px;
+  display:flex; align-items:center; justify-content:center; letter-spacing:-.02em;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+  flex:none;
+}
+.brand-name{font-family:'Archivo',sans-serif; font-weight:700; font-size:15px; letter-spacing:.02em; color:var(--on-navy);}
+.site-nav{display:flex; align-items:center; gap:22px;}
+.site-nav a{color:var(--on-navy-muted); text-decoration:none; font-size:14.5px; font-weight:500;}
+.site-nav a:hover{color:var(--on-navy);}
+
+main{background:var(--paper);}
+.hero{background:linear-gradient(185deg,var(--navy-900) 0%, var(--navy-950) 62%); position:relative; overflow:hidden; padding:88px 0 96px;}
+.hero::before{
+  content:""; position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size:42px 42px;
+  -webkit-mask-image:linear-gradient(180deg, rgba(0,0,0,.9), transparent 78%);
+  mask-image:linear-gradient(180deg, rgba(0,0,0,.9), transparent 78%);
+  pointer-events:none;
+}
+.hero-grid{position:relative; display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center;}
+.eyebrow{color:var(--amber-300); font-size:12.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; margin-bottom:14px;}
+.hero-copy h1{color:var(--on-navy); font-size:clamp(30px,4.2vw,46px); line-height:1.08; margin-bottom:20px;}
+.lede{color:var(--on-navy-muted); font-size:16.5px; max-width:52ch; margin-bottom:30px;}
+.hero-actions{display:flex; gap:14px; margin-bottom:40px; flex-wrap:wrap;}
+.hero-stats{display:flex; gap:34px; flex-wrap:wrap; margin:0;}
+.hero-stats>div{display:flex; flex-direction:column; gap:4px;}
+.hero-stats dt{color:var(--on-navy-muted); font-size:12px; text-transform:uppercase; letter-spacing:.06em;}
+.hero-stats dd{margin:0; color:var(--on-navy); font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:17px;}
+
+.hero-preview{position:relative;}
+.mock-card{
+  background:var(--surface); border-radius:var(--radius-l); box-shadow:0 30px 70px rgba(0,0,0,.45);
+  padding:22px; transform:rotate(1.6deg); border:1px solid rgba(255,255,255,.06);
+}
+.mock-card .mock-head{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:16px;}
+.mock-head span{font-size:12px; color:var(--ink-muted); text-transform:uppercase; letter-spacing:.06em; font-weight:600;}
+.mock-head strong{font-family:'Archivo',sans-serif; font-size:15px;}
+.mock-tiles{display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:16px;}
+.mock-tile{background:var(--surface-2); border-radius:var(--radius-s); padding:12px; border:1px solid var(--line);}
+.mock-tile span{display:block; font-size:11px; color:var(--ink-muted); margin-bottom:4px;}
+.mock-tile b{font-family:'IBM Plex Mono',monospace; font-size:15px;}
+.mock-bars{display:flex; align-items:flex-end; gap:8px; height:74px; padding:0 2px;}
+.mock-bars i{flex:1; border-radius:4px 4px 0 0; background:var(--cat-1); opacity:.9;}
+.mock-bars i:nth-child(2n){background:var(--cat-2);}
+
+.features{padding:88px 0;}
+.features h2{font-size:clamp(24px,3vw,32px); margin-bottom:36px; max-width:22ch;}
+.feature-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
+.feature-card{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-m); padding:24px 22px; box-shadow:var(--shadow-sm);}
+.feature-icon{width:42px; height:42px; border-radius:11px; display:flex; align-items:center; justify-content:center; margin-bottom:16px; color:#241a03;}
+.feature-card h3{font-size:16.5px; margin-bottom:8px;}
+.feature-card p{color:var(--ink-secondary); font-size:14px;}
+
+.how{background:var(--surface-2); padding:84px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+.how h2{font-size:clamp(24px,3vw,32px); margin-bottom:40px; max-width:24ch;}
+.how-steps{display:grid; grid-template-columns:repeat(3,1fr); gap:26px;}
+.how-step{position:relative; padding-left:2px;}
+.how-step .num{font-family:'Archivo',sans-serif; font-weight:800; font-size:34px; color:var(--line-strong); display:block; margin-bottom:8px;}
+.how-step h4{font-size:16px; margin-bottom:8px;}
+.how-step p{color:var(--ink-secondary); font-size:14px;}
+
+.cta-band{padding:80px 0; text-align:center;}
+.cta-band h2{font-size:clamp(24px,3.4vw,34px); max-width:26ch; margin:0 auto 26px;}
+.cta-band .btn{margin:0 6px;}
+
+.site-footer{background:var(--navy-950); color:var(--on-navy-muted); padding:34px 0; font-size:13px;}
+.site-footer .wrap{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;}
+
+/* ================= AUTH ================= */
+.auth-view{min-height:100vh; background:var(--paper);}
+.auth-shell{display:grid; grid-template-columns:1fr 1fr; min-height:100vh;}
+.auth-side{
+  background:linear-gradient(200deg,var(--navy-800),var(--navy-950));
+  color:var(--on-navy); padding:52px; display:flex; flex-direction:column; justify-content:space-between;
+  position:relative; overflow:hidden;
+}
+.auth-side::after{
+  content:""; position:absolute; right:-60px; bottom:-60px; width:280px; height:280px; border-radius:50%;
+  background:radial-gradient(circle, rgba(224,165,38,.18), transparent 70%);
+}
+.auth-quote{position:relative; font-family:'Archivo',sans-serif; font-size:22px; line-height:1.4; max-width:34ch; font-weight:700;}
+.auth-quote small{display:block; margin-top:16px; font-family:'IBM Plex Sans',sans-serif; font-weight:500; font-size:13.5px; color:var(--on-navy-muted);}
+.auth-form-wrap{display:flex; flex-direction:column; justify-content:center; padding:52px; max-width:440px; margin:0 auto; width:100%;}
+.back-link{font-size:13.5px; color:var(--ink-muted); text-decoration:none; margin-bottom:26px; display:inline-block;}
+.back-link:hover{color:var(--ink);}
+.auth-form-wrap h1{font-size:26px; margin-bottom:8px;}
+.auth-sub{color:var(--ink-secondary); margin-bottom:28px; display:block;}
+.field{display:flex; flex-direction:column; gap:6px; margin-bottom:16px;}
+.field label{font-size:13px; font-weight:600; color:var(--ink-secondary);}
+.field input, .field select{
+  border:1px solid var(--line-strong); background:var(--surface); color:var(--ink);
+  border-radius:var(--radius-s); padding:11px 13px; font-size:14.5px; font-family:inherit;
+}
+.field input:focus, .field select:focus{outline:2px solid var(--amber-500); outline-offset:1px; border-color:transparent;}
+.field-row{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+.form-aux{display:flex; align-items:center; justify-content:space-between; margin-bottom:22px; font-size:13.5px;}
+.form-aux a{color:var(--amber-600); text-decoration:none; font-weight:600;}
+.checkline{display:flex; align-items:flex-start; gap:9px; font-size:13px; color:var(--ink-secondary);}
+.checkline input{margin-top:3px;}
+.auth-switch{margin-top:22px; font-size:14px; color:var(--ink-secondary);}
+.auth-switch a{color:var(--amber-600); font-weight:600; text-decoration:none;}
+form .btn{width:100%;}
+
+/* ================= APP SHELL ================= */
+.app-shell{display:flex; min-height:100vh; align-items:stretch; background:var(--paper);}
+.sidebar{
+  width:236px; flex:none; background:var(--navy-950); color:var(--on-navy);
+  display:flex; flex-direction:column; padding:20px 14px; position:sticky; top:0; height:100vh;
+  z-index:60;
+}
+.sidebar-brand{display:flex; align-items:center; gap:11px; padding:8px 8px 22px;}
+.sidebar-brand strong{display:block; font-family:'Archivo',sans-serif; font-size:13.5px; letter-spacing:.03em; color:var(--on-navy);}
+.proto-tag{font-size:10px; color:var(--amber-300); letter-spacing:.08em; font-weight:700;}
+.sidebar-nav{display:flex; flex-direction:column; gap:3px; flex:1;}
+.nav-item{
+  display:flex; align-items:center; gap:11px; padding:10px 12px; border-radius:10px; border:none;
+  background:none; color:var(--on-navy-muted); font-size:14px; font-weight:500; cursor:pointer; text-align:left; width:100%;
+}
+.nav-item svg{flex:none; opacity:.85;}
+.nav-item:hover{background:rgba(255,255,255,.06); color:var(--on-navy);}
+.nav-item.active{background:rgba(224,165,38,.14); color:var(--amber-300);}
+.nav-item.active svg{opacity:1;}
+.sidebar-footer{border-top:1px solid rgba(255,255,255,.09); padding-top:14px; margin-top:10px;}
+.sidebar-footer .nav-item:hover{color:#ff9b9b;}
+
+.app-main{flex:1; min-width:0; display:flex; flex-direction:column;}
+.topbar{
+  height:68px; flex:none; display:flex; align-items:center; gap:16px; padding:0 26px;
+  background:var(--surface); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:30;
+}
+.only-mobile{display:none;}
+.obra-picker{
+  display:flex; align-items:center; gap:8px; font-size:14px; font-weight:600; background:var(--surface-2);
+  border:1px solid var(--line); padding:8px 13px; border-radius:999px; color:var(--ink); flex:none; cursor:pointer;
+}
+.obra-picker svg{color:var(--ink-muted);}
+.topbar-search{flex:1; max-width:360px; position:relative; display:flex; align-items:center;}
+.topbar-search svg{position:absolute; left:13px; color:var(--ink-muted);}
+.topbar-search input{
+  width:100%; padding:9px 13px 9px 38px; border-radius:999px; border:1px solid var(--line);
+  background:var(--surface-2); font-size:13.5px; color:var(--ink);
+}
+.topbar-search input:focus{outline:2px solid var(--amber-500); outline-offset:1px;}
+.topbar-actions{display:flex; align-items:center; gap:12px; margin-left:auto;}
+.avatar{
+  width:36px; height:36px; border-radius:50%; background:var(--navy-800); color:var(--amber-300);
+  display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px; font-family:'Archivo',sans-serif;
+  flex:none;
+}
+.user-chip{display:flex; align-items:center; gap:10px; cursor:pointer;}
+.user-chip .who{display:flex; flex-direction:column; line-height:1.25;}
+.user-chip .who b{font-size:13.5px;}
+.user-chip .who span{font-size:11.5px; color:var(--ink-muted);}
+
+.app-content{flex:1; padding:28px 30px 60px; max-width:1280px; width:100%; margin:0 auto;}
+.view-head{display:flex; justify-content:space-between; align-items:flex-end; gap:20px; margin-bottom:24px; flex-wrap:wrap;}
+.view-head h1{font-size:24px;}
+.view-head .sub{color:var(--ink-secondary); font-size:14px; margin-top:5px; display:block;}
+
+/* stat tiles */
+.stat-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:26px;}
+.stat-tile{
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-m); padding:17px 18px;
+  box-shadow:var(--shadow-sm);
+}
+.stat-tile .label{font-size:12px; color:var(--ink-muted); text-transform:uppercase; letter-spacing:.05em; font-weight:600; margin-bottom:9px; display:block;}
+.stat-tile .value{font-family:'IBM Plex Mono',monospace; font-size:20px; font-weight:600; display:block;}
+.stat-tile.accent .value{color:var(--status-good);}
+
+/* cards / panels */
+.panel{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-m); padding:22px; box-shadow:var(--shadow-sm);}
+.panel-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; gap:10px; flex-wrap:wrap;}
+.panel-head h2{font-size:16px;}
+.panel-head .hint{font-size:12.5px; color:var(--ink-muted);}
+.grid-2{display:grid; grid-template-columns:1.3fr 1fr; gap:16px;}
+.stack{display:flex; flex-direction:column; gap:16px;}
+
+/* legend */
+.legend{display:flex; gap:16px; flex-wrap:wrap; font-size:12.5px; color:var(--ink-secondary); margin-top:12px;}
+.legend span{display:inline-flex; align-items:center; gap:6px;}
+.legend i{width:10px; height:10px; border-radius:3px; display:inline-block;}
+
+/* grouped bar chart */
+.chart-wrap{position:relative;}
+.bar-chart{display:flex; align-items:flex-end; gap:18px; height:190px; border-bottom:1px solid var(--line); padding:0 4px 0;}
+.bar-group{flex:1; display:flex; align-items:flex-end; justify-content:center; gap:5px; height:100%; position:relative;}
+.bar{
+  width:15px; border-radius:4px 4px 0 0; cursor:pointer; transition:opacity .12s ease;
+  outline-offset:2px;
+}
+.bar:hover, .bar:focus-visible{opacity:.82; outline:2px solid var(--ink-muted);}
+.bar-labels{display:flex; gap:18px; padding:8px 4px 0;}
+.bar-labels span{flex:1; text-align:center; font-size:11.5px; color:var(--ink-muted); font-weight:600;}
+.chart-tip{
+  position:absolute; background:var(--navy-950); color:var(--on-navy); padding:8px 11px; border-radius:8px;
+  font-size:12px; white-space:nowrap; pointer-events:none; transform:translate(-50%,-100%); z-index:50;
+  box-shadow:var(--shadow-md);
+}
+.chart-tip[hidden]{display:none;}
+.chart-tip b{font-family:'IBM Plex Mono',monospace;}
+
+/* horizontal category bars */
+.hbars{display:flex; flex-direction:column; gap:12px;}
+.hbar-row{display:grid; grid-template-columns:120px 1fr 84px; align-items:center; gap:10px; font-size:13px;}
+.hbar-track{background:var(--surface-2); border-radius:6px; height:14px; overflow:hidden; border:1px solid var(--line);}
+.hbar-fill{height:100%; border-radius:6px 0 0 6px;}
+.hbar-row .val{text-align:right; font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--ink-secondary);}
+
+/* split bar */
+.split-bar{display:flex; height:34px; border-radius:8px; overflow:hidden; border:1px solid var(--line); margin:10px 0 8px;}
+.split-seg{display:flex; align-items:center; justify-content:center; color:#fff; font-size:12.5px; font-weight:700;}
+
+/* tags & pills */
+.tag{
+  display:inline-flex; align-items:center; gap:6px; font-size:11.5px; font-weight:600; padding:4px 10px;
+  border-radius:999px; background:color-mix(in srgb, var(--tag-color) 16%, var(--surface)); color:var(--tag-color);
+  white-space:nowrap;
+}
+.tag i{width:7px; height:7px; border-radius:50%; background:var(--tag-color);}
+.pill{display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; padding:4px 10px; border-radius:999px; white-space:nowrap;}
+.pill.good{background:var(--status-good-tint); color:var(--status-good);}
+.pill.warning{background:var(--status-warning-tint); color:var(--status-warning);}
+.pill.critical{background:var(--status-critical-tint); color:var(--status-critical);}
+.pill svg{width:13px; height:13px;}
+
+/* tables */
+.table-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:var(--radius-m); background:var(--surface);}
+table{width:100%; border-collapse:collapse; font-size:13.5px; min-width:640px;}
+thead th{
+  text-align:left; font-size:11.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-muted);
+  padding:12px 14px; border-bottom:1px solid var(--line); font-weight:700; white-space:nowrap; background:var(--surface-2);
+  position:sticky; top:0;
+}
+tbody td{padding:11px 14px; border-bottom:1px solid var(--line); vertical-align:middle; white-space:nowrap;}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:var(--surface-2);}
+td.num, th.num{text-align:right; font-family:'IBM Plex Mono',monospace;}
+.row-link{background:none; border:none; color:var(--amber-600); font-weight:600; cursor:pointer; font-size:13px; padding:0;}
+
+/* filter bar */
+.filter-bar{display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap; align-items:center;}
+.filter-bar select, .filter-bar .search{
+  border:1px solid var(--line-strong); background:var(--surface); color:var(--ink); border-radius:var(--radius-s);
+  padding:9px 12px; font-size:13.5px;
+}
+.filter-bar .search{position:relative; flex:1; min-width:200px; display:flex; align-items:center;}
+.filter-bar .search svg{position:absolute; left:11px; color:var(--ink-muted);}
+.filter-bar .search input{border:none; background:none; padding-left:26px; width:100%; font-size:13.5px; color:var(--ink);}
+.filter-bar .search input:focus{outline:none;}
+.filter-bar .spacer{flex:1;}
+
+/* lot installments */
+.lot-select{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;}
+.lot-chip{
+  border:1px solid var(--line-strong); background:var(--surface); padding:7px 14px; border-radius:999px; font-size:13px;
+  font-weight:600; cursor:pointer; color:var(--ink-secondary);
+}
+.lot-chip.active{background:var(--navy-900); color:var(--on-navy); border-color:var(--navy-900);}
+
+/* financeiro */
+.finance-total-row td{font-weight:700; background:var(--surface-2);}
+.callout{border-radius:var(--radius-m); padding:18px; background:var(--status-good-tint); border:1px solid color-mix(in srgb, var(--status-good) 30%, transparent);}
+.callout .label{font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--status-good); font-weight:700;}
+.callout .value{font-family:'IBM Plex Mono',monospace; font-size:26px; font-weight:700; color:var(--status-good); display:block; margin-top:6px;}
+
+/* documentos */
+.breadcrumb{display:flex; align-items:center; gap:6px; font-size:13.5px; color:var(--ink-muted); margin-bottom:18px;}
+.breadcrumb button{background:none; border:none; color:var(--ink-muted); font-weight:600; cursor:pointer; padding:0; font-size:13.5px;}
+.breadcrumb button.current{color:var(--ink); cursor:default;}
+.folder-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
+.folder-card{
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-m); padding:18px;
+  cursor:pointer; text-align:left; display:flex; flex-direction:column; gap:12px; box-shadow:var(--shadow-sm);
+}
+.folder-card:hover{border-color:var(--line-strong); transform:translateY(-1px);}
+.folder-icon{width:42px; height:42px; border-radius:10px; background:var(--amber-tint); color:var(--amber-600); display:flex; align-items:center; justify-content:center;}
+.folder-card b{font-size:14px;}
+.folder-card span{font-size:12px; color:var(--ink-muted);}
+.file-row-icon{width:30px; height:30px; border-radius:7px; display:flex; align-items:center; justify-content:center; flex:none; color:#fff;}
+
+@media (max-width:960px){
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-preview{display:none;}
+  .feature-grid{grid-template-columns:repeat(2,1fr);}
+  .how-steps{grid-template-columns:1fr;}
+  .auth-shell{grid-template-columns:1fr;}
+  .auth-side{display:none;}
+  .stat-grid{grid-template-columns:repeat(2,1fr);}
+  .grid-2{grid-template-columns:1fr;}
+  .folder-grid{grid-template-columns:repeat(2,1fr);}
+  .site-nav a{display:none;}
+  .only-mobile{display:inline-flex;}
+  .sidebar{position:fixed; left:0; top:0; transform:translateX(-100%); transition:transform .2s ease; box-shadow:var(--shadow-md);}
+  .sidebar.open{transform:translateX(0);}
+}
+@media (max-width:620px){
+  .feature-grid{grid-template-columns:1fr;}
+  .stat-grid{grid-template-columns:1fr 1fr;}
+  .field-row{grid-template-columns:1fr;}
+}
+</style>
+
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+<!-- ================= LANDING ================= -->
+<div id="view-landing" class="view">
+  <div class="proto-ribbon">Protótipo de layout &middot; <b>dados de demonstração</b> da NP Construções</div>
+  <header class="site-header">
+    <div class="wrap site-header-inner">
+      <button class="brand" onclick="go('landing')" aria-label="NP Construções, início">
+        <span class="brand-mark">NP</span>
+        <span class="brand-name">NP CONSTRUÇÕES</span>
+      </button>
+      <nav class="site-nav">
+        <a href="#recursos">Recursos</a>
+        <a href="#como-funciona">Como funciona</a>
+        <button class="btn btn-ghost" onclick="go('login')">Entrar</button>
+        <button class="btn btn-amber" onclick="go('cadastro')">Criar conta</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Gestão de obras e loteamentos</p>
+          <h1>Cada tijolo, cada nota fiscal, cada real da obra — num só lugar.</h1>
+          <p class="lede">A plataforma da NP Construções para acompanhar o custo de cada lote, controlar fornecedores e mão de obra, e guardar toda a documentação da obra sem depender de planilha solta ou pasta perdida no Drive.</p>
+          <div class="hero-actions">
+            <button class="btn btn-amber btn-lg" onclick="go('cadastro')">Criar minha conta</button>
+            <button class="btn btn-outline btn-lg" onclick="go('login')">Já tenho conta</button>
+          </div>
+          <dl class="hero-stats">
+            <div><dt>Início da obra</dt><dd>03/05/2025</dd></div>
+            <div><dt>Lotes em andamento</dt><dd>6</dd></div>
+            <div><dt>Custo total controlado</dt><dd>R$ 577.802,30</dd></div>
+          </dl>
+        </div>
+        <div class="hero-preview" aria-hidden="true">
+          <div class="mock-card">
+            <div class="mock-head"><span>Painel &middot; Loteamento Colinas</span><strong>NP</strong></div>
+            <div class="mock-tiles">
+              <div class="mock-tile"><span>Custo total da obra</span><b>R$ 577.802,30</b></div>
+              <div class="mock-tile"><span>Lucro estimado</span><b>R$ 442.197,70</b></div>
+            </div>
+            <div class="mock-bars">
+              <i style="height:38%"></i><i style="height:64%"></i><i style="height:46%"></i>
+              <i style="height:70%"></i><i style="height:52%"></i><i style="height:82%"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features" id="recursos">
+      <div class="wrap">
+        <h2>Tudo que hoje mora numa planilha, organizado</h2>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="feature-icon" style="background:var(--cat-1)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7h18M3 12h18M3 17h10"/></svg>
+            </div>
+            <h3>Materiais &amp; fornecedores</h3>
+            <p>Pedido, chegada, valor, status de pagamento e categoria de cada material &mdash; igual à sua planilha, mas pesquisável e sem risco de fórmula quebrada.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" style="background:var(--amber-500)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <h3>Financeiro por lote</h3>
+            <p>Custo, valor de venda e lucro de cada lote lado a lado, com custos iniciais, pós-obra e o investimento dividido entre os sócios.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" style="background:var(--cat-3)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4.2 5-6 8-6s6.5 1.8 8 6"/></svg>
+            </div>
+            <h3>Mão de obra</h3>
+            <p>Sinal e parcelas de cada equipe, por lote, com status de pagamento visível de longe &mdash; sem abrir planilha nenhuma no canteiro.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" style="background:var(--cat-5)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19V6a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/></svg>
+            </div>
+            <h3>Documentos da obra</h3>
+            <p>As mesmas pastas do seu Drive &mdash; colaboradores, engenharia, projetos, terrenos &mdash; organizadas dentro da plataforma, por obra.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="how" id="como-funciona">
+      <div class="wrap">
+        <h2>De cadastro a canteiro em três passos</h2>
+        <div class="how-steps">
+          <div class="how-step"><span class="num">01</span><h4>Crie sua conta</h4><p>Cadastre sua construtora, convide sua equipe e crie sua primeira obra em minutos.</p></div>
+          <div class="how-step"><span class="num">02</span><h4>Lance seus lotes e materiais</h4><p>Cadastre os lotes, fornecedores e pedidos &mdash; do jeito que já está na sua planilha hoje.</p></div>
+          <div class="how-step"><span class="num">03</span><h4>Acompanhe tudo num painel</h4><p>Custo, lucro, mão de obra e documentos por obra, atualizados e visíveis para quem precisar.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="wrap">
+        <h2>Pronto para tirar o controle da obra da planilha?</h2>
+        <button class="btn btn-solid btn-lg" onclick="go('cadastro')">Criar minha conta grátis</button>
+        <button class="btn btn-line btn-lg" onclick="go('login')">Entrar</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>&copy; 2026 NP Construções</span>
+      <span>Protótipo de layout &mdash; sem cadastro real ainda</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ================= LOGIN ================= -->
+<div id="view-login" class="view auth-view" hidden>
+  <div class="auth-shell">
+    <div class="auth-side">
+      <button class="brand" onclick="go('landing')" style="margin-bottom:0;">
+        <span class="brand-mark">NP</span><span class="brand-name">NP CONSTRUÇÕES</span>
+      </button>
+      <p class="auth-quote">"Parei de perguntar 'quanto já gastei no lote 12' e passei a simplesmente olhar o painel."
+        <small>Fluxo de exemplo &middot; construtor NP Construções</small>
+      </p>
+      <div></div>
+    </div>
+    <div class="auth-form-wrap">
+      <a class="back-link" href="#" onclick="event.preventDefault(); go('landing')">&larr; Voltar ao site</a>
+      <h1>Entrar na plataforma</h1>
+      <span class="auth-sub">Acesse o painel das suas obras.</span>
+      <form onsubmit="handleLogin(event)">
+        <div class="field">
+          <label for="login-email">E-mail</label>
+          <input id="login-email" type="email" placeholder="voce@suaconstrutora.com.br" required>
+        </div>
+        <div class="field">
+          <label for="login-senha">Senha</label>
+          <input id="login-senha" type="password" placeholder="••••••••" required>
+        </div>
+        <div class="form-aux">
+          <label class="checkline"><input type="checkbox" checked style="margin-top:0;"> Manter conectado</label>
+          <a href="#" onclick="event.preventDefault(); showToast('Recuperação de senha chega junto com o login real.')">Esqueci a senha</a>
+        </div>
+        <button class="btn btn-amber btn-lg" type="submit">Entrar</button>
+      </form>
+      <p class="auth-switch">Ainda não tem conta? <a href="#" onclick="event.preventDefault(); go('cadastro')">Criar conta</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= CADASTRO ================= -->
+<div id="view-cadastro" class="view auth-view" hidden>
+  <div class="auth-shell">
+    <div class="auth-side">
+      <button class="brand" onclick="go('landing')" style="margin-bottom:0;">
+        <span class="brand-mark">NP</span><span class="brand-name">NP CONSTRUÇÕES</span>
+      </button>
+      <p class="auth-quote">"Cada lote com custo, venda e lucro na mesma tela &mdash; sem procurar aba."
+        <small>Fluxo de exemplo &middot; construtor NP Construções</small>
+      </p>
+      <div></div>
+    </div>
+    <div class="auth-form-wrap">
+      <a class="back-link" href="#" onclick="event.preventDefault(); go('landing')">&larr; Voltar ao site</a>
+      <h1>Criar sua conta</h1>
+      <span class="auth-sub">Leva menos de dois minutos.</span>
+      <form onsubmit="handleCadastro(event)">
+        <div class="field">
+          <label for="cad-nome">Nome completo</label>
+          <input id="cad-nome" type="text" placeholder="Seu nome" required>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="cad-empresa">Construtora</label>
+            <input id="cad-empresa" type="text" placeholder="NP Construções" required>
+          </div>
+          <div class="field">
+            <label for="cad-cnpj">CNPJ (opcional)</label>
+            <input id="cad-cnpj" type="text" placeholder="00.000.000/0001-00">
+          </div>
+        </div>
+        <div class="field">
+          <label for="cad-email">E-mail</label>
+          <input id="cad-email" type="email" placeholder="voce@suaconstrutora.com.br" required>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="cad-senha">Senha</label>
+            <input id="cad-senha" type="password" placeholder="••••••••" required>
+          </div>
+          <div class="field">
+            <label for="cad-senha2">Confirmar senha</label>
+            <input id="cad-senha2" type="password" placeholder="••••••••" required>
+          </div>
+        </div>
+        <div class="form-aux" style="margin-bottom:18px;">
+          <label class="checkline"><input type="checkbox" required> Concordo com os termos de uso e a política de privacidade</label>
+        </div>
+        <button class="btn btn-amber btn-lg" type="submit">Criar conta</button>
+      </form>
+      <p class="auth-switch">Já tem conta? <a href="#" onclick="event.preventDefault(); go('login')">Entrar</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= APP ================= -->
+<div id="view-app" class="view app-shell" hidden>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-mark">NP</span>
+      <div><strong>NP CONSTRUÇÕES</strong><span class="proto-tag">PROTÓTIPO</span></div>
+    </div>
+    <nav class="sidebar-nav">
+      <button class="nav-item active" data-sub="painel" onclick="showSub('painel')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="8" height="9" rx="1.5"/><rect x="13" y="3" width="8" height="5" rx="1.5"/><rect x="13" y="12" width="8" height="9" rx="1.5"/><rect x="3" y="16" width="8" height="5" rx="1.5"/></svg>
+        Painel
+      </button>
+      <button class="nav-item" data-sub="obras" onclick="showSub('obras')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg>
+        Obras &amp; lotes
+      </button>
+      <button class="nav-item" data-sub="materiais" onclick="showSub('materiais')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 8 12 3 3 8l9 5 9-5Z"/><path d="M3 8v8l9 5 9-5V8M12 13v8"/></svg>
+        Materiais
+      </button>
+      <button class="nav-item" data-sub="financeiro" onclick="showSub('financeiro')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        Financeiro
+      </button>
+      <button class="nav-item" data-sub="documentos" onclick="showSub('documentos')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19V6a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/></svg>
+        Documentos
+      </button>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="nav-item" onclick="logout()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+        Sair
+      </button>
+    </div>
+  </aside>
+
+  <div class="app-main">
+    <header class="topbar">
+      <button class="icon-btn only-mobile" onclick="toggleSidebar()" aria-label="Abrir menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <button class="obra-picker" onclick="showToast('Troca de obra chega quando conectarmos várias obras.')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 21h18M5 21V9l7-5 7 5v12"/></svg>
+        Loteamento Colinas &middot; Lotes 11 e 12
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div class="topbar-search">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" placeholder="Buscar material, fornecedor, documento...">
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn" onclick="showToast('Notificações chegam na próxima etapa.')" aria-label="Notificações">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+        </button>
+        <div class="user-chip" onclick="showToast('Perfil e permissões de equipe chegam em seguida.')">
+          <span class="avatar">JB</span>
+          <span class="who"><b>Jefferson</b><span>Administrador</span></span>
+        </div>
+      </div>
+    </header>
+
+    <main class="app-content">
+      <!-- PAINEL -->
+      <section id="sub-painel" class="subview">
+        <div class="view-head">
+          <div><h1>Painel</h1><span class="sub">Loteamento Colinas &middot; início da obra em 03/05/2025 &middot; 6 lotes</span></div>
+          <button class="btn btn-line btn-sm" onclick="showToast('Exportação em PDF chega junto com o backend real.')">Exportar relatório</button>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-tile"><span class="label">Custo total da obra</span><span class="value tabular">R$ 577.802,30</span></div>
+          <div class="stat-tile accent"><span class="label">Lucro estimado</span><span class="value tabular">R$ 442.197,70</span></div>
+          <div class="stat-tile"><span class="label">Custo de material</span><span class="value tabular">R$ 305.833,56</span></div>
+          <div class="stat-tile"><span class="label">Mão de obra total</span><span class="value tabular">R$ 198.000,00</span></div>
+          <div class="stat-tile"><span class="label">Custo por casa</span><span class="value tabular">R$ 83.972,26</span></div>
+        </div>
+
+        <div class="grid-2" style="margin-bottom:16px;">
+          <div class="panel">
+            <div class="panel-head"><h2>Custo vs. valor de venda por lote</h2><span class="hint">passe o mouse para ver os valores</span></div>
+            <div class="chart-wrap">
+              <div class="bar-chart" id="lot-chart"></div>
+              <div class="bar-labels">
+                <span>11-01</span><span>11-02</span><span>11-03</span><span>12-01</span><span>12-02</span><span>12-03</span>
+              </div>
+              <div class="chart-tip" id="chart-tip" hidden></div>
+            </div>
+            <div class="legend">
+              <span><i style="background:var(--cat-1)"></i>Custo</span>
+              <span><i style="background:var(--cat-2)"></i>Valor de venda</span>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h2>Investimento</h2></div>
+            <span class="hint" style="display:block; margin-bottom:6px;">Divisão entre sócios</span>
+            <div class="split-bar">
+              <div class="split-seg" style="width:60%; background:var(--cat-1);">Sócio A &middot; 60%</div>
+              <div class="split-seg" style="width:40%; background:var(--cat-2);">Sócio B &middot; 40%</div>
+            </div>
+            <div class="callout" style="margin-top:18px;">
+              <span class="label">Lucro projetado</span>
+              <span class="value tabular">R$ 442.197,70</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-bottom:16px;">
+          <div class="panel-head"><h2>Gasto por categoria de material</h2><span class="hint">amostra de pedidos recentes</span></div>
+          <div class="hbars" id="cat-bars"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h2>Lotes</h2><span class="hint">clique para ver detalhes</span></div>
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th>Lote</th><th class="num">Custo</th><th class="num">Valor de venda</th><th class="num">Lucro</th><th>Mão de obra</th><th></th></tr></thead>
+              <tbody id="painel-lots"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- OBRAS -->
+      <section id="sub-obras" class="subview" hidden>
+        <div class="view-head">
+          <div><h1>Obras &amp; lotes</h1><span class="sub">Loteamento Colinas &middot; 6 lotes cadastrados</span></div>
+          <button class="btn btn-amber btn-sm" onclick="showToast('Cadastro de novo lote chega junto com o backend real.')">+ Novo lote</button>
+        </div>
+        <div class="panel" style="margin-bottom:16px;">
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th>Lote</th><th class="num">Custo</th><th class="num">Valor de venda</th><th class="num">Lucro</th><th>Mão de obra</th><th></th></tr></thead>
+              <tbody id="obras-lots"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h2>Mão de obra &mdash; pedreiro</h2><span class="hint">sinal + 5 parcelas por lote</span></div>
+          <div class="lot-select" id="lot-select"></div>
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th>Parcela</th><th class="num">Valor</th><th>Status</th></tr></thead>
+              <tbody id="lot-installments"></tbody>
+              <tfoot><tr class="finance-total-row"><td>Total</td><td class="num tabular">R$ 33.000,00</td><td></td></tr></tfoot>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- MATERIAIS -->
+      <section id="sub-materiais" class="subview" hidden>
+        <div class="view-head">
+          <div><h1>Materiais</h1><span class="sub">Todos os pedidos da obra, por fornecedor e categoria</span></div>
+          <button class="btn btn-amber btn-sm" onclick="showToast('Novo pedido chega junto com o backend real.')">+ Novo pedido</button>
+        </div>
+        <div class="filter-bar">
+          <div class="search">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" id="mat-search" placeholder="Buscar material ou fornecedor..." oninput="filterMateriais()">
+          </div>
+          <select id="mat-status" onchange="filterMateriais()">
+            <option value="">Status: todos</option>
+            <option value="Pago">Pago</option>
+            <option value="Falta entregar">Pago &mdash; falta entregar</option>
+          </select>
+          <select id="mat-tipo" onchange="filterMateriais()">
+            <option value="">Categoria: todas</option>
+            <option>Material Bruto</option><option>Aço</option><option>Hidráulicos</option>
+            <option>Madeira</option><option>Variados</option><option>Acabamentos</option>
+          </select>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr><th>Material</th><th>Unidade</th><th class="num">Qtd.</th><th>Pedido</th><th>Chegada</th><th>Fornecedor</th><th class="num">Valor</th><th>Status</th><th>Categoria</th></tr>
+            </thead>
+            <tbody id="materiais-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- FINANCEIRO -->
+      <section id="sub-financeiro" class="subview" hidden>
+        <div class="view-head">
+          <div><h1>Financeiro</h1><span class="sub">Custos iniciais, pós-obra e resultado por casa</span></div>
+        </div>
+        <div class="grid-2" style="margin-bottom:16px;">
+          <div class="panel">
+            <div class="panel-head"><h2>Custos iniciais &mdash; 6 casas</h2></div>
+            <div class="table-scroll">
+              <table>
+                <thead><tr><th>Item</th><th class="num">Valor</th></tr></thead>
+                <tbody id="custos-iniciais"></tbody>
+                <tfoot><tr class="finance-total-row"><td>Total</td><td class="num tabular">R$ 73.968,74</td></tr></tfoot>
+              </table>
+            </div>
+          </div>
+          <div class="stack">
+            <div class="panel">
+              <div class="panel-head"><h2>Custos pós-obra</h2></div>
+              <div class="table-scroll">
+                <table>
+                  <thead><tr><th>Item</th><th class="num">Valor</th></tr></thead>
+                  <tbody>
+                    <tr><td>Manutenção</td><td class="num tabular">R$ 0,00</td></tr>
+                    <tr><td>Limpeza final</td><td class="num tabular">R$ 0,00</td></tr>
+                    <tr><td>Ajustes de entrega</td><td class="num tabular">R$ 0,00</td></tr>
+                  </tbody>
+                  <tfoot><tr class="finance-total-row"><td>Total</td><td class="num tabular">R$ 0,00</td></tr></tfoot>
+                </table>
+              </div>
+            </div>
+            <div class="callout">
+              <span class="label">Lucro estimado da obra</span>
+              <span class="value tabular">R$ 442.197,70</span>
+            </div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h2>Resumo por casa</h2></div>
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th>Indicador</th><th class="num">Valor</th></tr></thead>
+              <tbody>
+                <tr><td>Custo de material por casa</td><td class="num tabular">R$ 50.972,26</td></tr>
+                <tr><td>Mão de obra por casa</td><td class="num tabular">R$ 33.000,00</td></tr>
+                <tr><td>Material + mão de obra por casa</td><td class="num tabular">R$ 83.972,26</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- DOCUMENTOS -->
+      <section id="sub-documentos" class="subview" hidden>
+        <div class="view-head">
+          <div><h1>Documentos</h1><span class="sub">A mesma organização do seu Drive, dentro da obra</span></div>
+          <button class="btn btn-amber btn-sm" onclick="showToast('Envio de arquivos chega junto com o armazenamento real.')">Enviar arquivo</button>
+        </div>
+        <div class="breadcrumb" id="doc-breadcrumb"></div>
+        <div class="folder-grid" id="doc-folders"></div>
+        <div class="table-scroll" id="doc-files-wrap" hidden>
+          <table>
+            <thead><tr><th>Nome</th><th>Tipo</th><th>Modificado</th><th class="num">Tamanho</th><th></th></tr></thead>
+            <tbody id="doc-files-body"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var LOTS = [
+    {id:"11-01", custo:"96.300,38", venda:"170.000,00", lucro:"73.699,62"},
+    {id:"11-02", custo:"96.300,38", venda:"170.000,00", lucro:"73.699,62"},
+    {id:"11-03", custo:"96.300,38", venda:"170.000,00", lucro:"73.699,62"},
+    {id:"12-01", custo:"96.300,38", venda:"170.000,00", lucro:"73.699,62"},
+    {id:"12-02", custo:"96.300,38", venda:"170.000,00", lucro:"73.699,62"},
+    {id:"12-03", custo:"96.300,38", venda:"170.000,00", lucro:"73.699,62"}
+  ];
+  var LOT_CUSTO_NUM = 96300.38, LOT_VENDA_NUM = 170000.00;
+
+  var INSTALLMENTS = [
+    {label:"Sinal", valor:"4.950,00"},
+    {label:"1ª parcela", valor:"5.610,00"},
+    {label:"2ª parcela", valor:"5.610,00"},
+    {label:"3ª parcela", valor:"5.610,00"},
+    {label:"4ª parcela", valor:"5.610,00"},
+    {label:"5ª parcela", valor:"5.610,00"}
+  ];
+
+  var CAT_COLOR = {
+    "Material Bruto":"var(--cat-1)", "Aço":"var(--cat-2)", "Hidráulicos":"var(--cat-3)",
+    "Madeira":"var(--cat-4)", "Variados":"var(--cat-5)", "Acabamentos":"var(--cat-6)"
+  };
+  var CAT_TOTALS = [
+    {tipo:"Acabamentos", valor:34693.98},
+    {tipo:"Material Bruto", valor:24495.00},
+    {tipo:"Aço", valor:3525.00},
+    {tipo:"Madeira", valor:2998.50},
+    {tipo:"Hidráulicos", valor:1057.80},
+    {tipo:"Variados", valor:734.22}
+  ];
+
+  var MATERIAIS = [
+    {mat:"TIJOLO", un:"CARRADA", qtd:"12.000,00", pedido:"01/05/2026", chegada:"02/05/2026", forn:"PUTU - TIJOLO", valor:"9.360,00", status:"Pago", tipo:"Material Bruto"},
+    {mat:"AREIA GROSSA", un:"CARRADA", qtd:"13,00", pedido:"01/05/2026", chegada:"04/05/2026", forn:"FABRÍCIO - AREIA", valor:"850,00", status:"Pago", tipo:"Material Bruto"},
+    {mat:"AREIA MÉDIA", un:"CARRADA", qtd:"13,00", pedido:"01/05/2026", chegada:"04/05/2026", forn:"FABRÍCIO - AREIA", valor:"850,00", status:"Pago", tipo:"Material Bruto"},
+    {mat:"PIQUETES", un:"UN", qtd:"50,00", pedido:"02/05/2026", chegada:"02/05/2026", forn:"ANDRÉA MÃE RAINHA", valor:"562,50", status:"Pago", tipo:"Madeira"},
+    {mat:"TÁBUA MISTA", un:"METROS", qtd:"80,00", pedido:"02/05/2026", chegada:"02/05/2026", forn:"ANDRÉA MÃE RAINHA", valor:"1.760,00", status:"Pago", tipo:"Madeira"},
+    {mat:"TÁBUAS DE PINOS", un:"METROS", qtd:"40,00", pedido:"02/05/2026", chegada:"02/05/2026", forn:"ANDRÉA MÃE RAINHA", valor:"676,00", status:"Pago", tipo:"Madeira"},
+    {mat:"PREGO DE RIPA", un:"KG", qtd:"1,00", pedido:"02/05/2026", chegada:"02/05/2026", forn:"ANDRÉA MÃE RAINHA", valor:"25,00", status:"Pago", tipo:"Aço"},
+    {mat:"BRITA 5/8", un:"METROS", qtd:"14,00", pedido:"02/05/2026", chegada:"02/05/2026", forn:"SELTON BRITA", valor:"2.450,00", status:"Pago", tipo:"Material Bruto"},
+    {mat:"CAIXA D'ÁGUA", un:"UN", qtd:"2,00", pedido:"03/05/2026", chegada:"03/05/2026", forn:"CARAJÁS", valor:"1.057,80", status:"Pago", tipo:"Hidráulicos"},
+    {mat:"CIMENTO", un:"UN", qtd:"10,00", pedido:"04/05/2026", chegada:"04/05/2026", forn:"DONA SOCORRO", valor:"450,00", status:"Pago", tipo:"Material Bruto"},
+    {mat:"CIMENTO", un:"UN", qtd:"150,00", pedido:"04/05/2026", chegada:"04/05/2026", forn:"NORTE FERRO", valor:"5.775,00", status:"Pago", tipo:"Material Bruto"},
+    {mat:"MALHA POP", un:"UN", qtd:"40,00", pedido:"04/05/2026", chegada:"04/05/2026", forn:"NORTE FERRO", valor:"1.340,00", status:"Pago", tipo:"Aço"},
+    {mat:"COLUNAS 3/8", un:"UN", qtd:"30,00", pedido:"04/05/2026", chegada:"04/05/2026", forn:"PIRRITA METAIS", valor:"2.160,00", status:"Pago", tipo:"Aço"},
+    {mat:"LONA", un:"METROS", qtd:"100,00", pedido:"04/05/2026", chegada:"04/05/2026", forn:"ATACADO DO LOGISTA", valor:"734,22", status:"Pago", tipo:"Variados"},
+    {mat:"VIDRO", un:"UN", qtd:"1,00", pedido:"10/06/2026", chegada:"10/06/2026", forn:"ROGÉRIO - VIDRO", valor:"10.000,00", status:"Falta entregar", tipo:"Acabamentos"},
+    {mat:"ACABAMENTOS DIVERSOS", un:"UN", qtd:"1,00", pedido:"08/06/2026", chegada:"08/06/2026", forn:"EDNELSON - VALE DO PARÁ", valor:"15.093,98", status:"Pago", tipo:"Acabamentos"},
+    {mat:"MÁRMORE", un:"UN", qtd:"1,00", pedido:"09/06/2026", chegada:"09/06/2026", forn:"VANDERLÚCIO - MÁRMORE", valor:"9.600,00", status:"Pago", tipo:"Acabamentos"},
+    {mat:"MADEIRA / TELHA", un:"UN", qtd:"1,00", pedido:"08/06/2026", chegada:"08/06/2026", forn:"FRANKLIN - MADEIRA - TELHA", valor:"4.760,00", status:"Pago", tipo:"Material Bruto"}
+  ];
+
+  var CUSTOS_INICIAIS = [
+    {item:"Plotagem projeto", valor:"40,00"},
+    {item:"Dedetização", valor:"500,00"},
+    {item:"SAAE", valor:"193,15"},
+    {item:"Terreno", valor:"66.000,00"},
+    {item:"DAM &mdash; Habite-se", valor:"78,30"},
+    {item:"DAM &mdash; características", valor:"151,14"},
+    {item:"Certidão simplificada", valor:"94,47"},
+    {item:"Adiantamento de documentação", valor:"1.000,00"},
+    {item:"Despachante", valor:"450,00"},
+    {item:"Protocolo cartório", valor:"306,30"},
+    {item:"Averbação (3 casas)", valor:"2.328,34"},
+    {item:"Boleto engenheiro", valor:"750,00"},
+    {item:"Boleto engenheiro", valor:"750,00"},
+    {item:"Boleto engenheiro", valor:"750,00"},
+    {item:"Inteiro teor (3 CS)", valor:"433,42"},
+    {item:"Certidão específica", valor:"143,62"}
+  ];
+
+  var FOLDERS = [
+    {id:"administrativo", nome:"ADMINISTRATIVO", itens:12, mod:"22/07/2025"},
+    {id:"colaboradores", nome:"COLABORADORES", itens:9, mod:"10/11/2025"},
+    {id:"documentos-necessarios", nome:"DOCUMENTOS NECESSÁRIOS", itens:18, mod:"13/08/2025"},
+    {id:"engenharia", nome:"ENGENHARIA", itens:24, mod:"14/08/2025"},
+    {id:"planilhas-de-obra", nome:"PLANILHAS DE OBRA", itens:6, mod:"01/08/2025"},
+    {id:"projetos", nome:"PROJETOS", itens:15, mod:"20/07/2025"},
+    {id:"terrenos", nome:"TERRENOS", itens:4, mod:"01/08/2025"}
+  ];
+  var FOLDER_FILES = {
+    "administrativo":[
+      {nome:"Contrato social NP Construções.pdf", tipo:"pdf", mod:"22/07/2025", tam:"1,2 MB"},
+      {nome:"Alvará de funcionamento.pdf", tipo:"pdf", mod:"03/06/2025", tam:"640 KB"}
+    ],
+    "colaboradores":[
+      {nome:"Equipe pedreiro - Lote 11-01.xlsx", tipo:"sheet", mod:"10/11/2025", tam:"88 KB"},
+      {nome:"Contrato Fabrício - Areia.pdf", tipo:"pdf", mod:"02/05/2025", tam:"320 KB"},
+      {nome:"Contrato Andréa Mãe Rainha.pdf", tipo:"pdf", mod:"02/05/2025", tam:"310 KB"}
+    ],
+    "documentos-necessarios":[
+      {nome:"Checklist documentação lote.pdf", tipo:"pdf", mod:"13/08/2025", tam:"210 KB"},
+      {nome:"Certidão simplificada.pdf", tipo:"pdf", mod:"05/08/2025", tam:"180 KB"}
+    ],
+    "engenharia":[
+      {nome:"Projeto estrutural - Lote 12.pdf", tipo:"pdf", mod:"14/08/2025", tam:"6,4 MB"},
+      {nome:"ART engenheiro responsável.pdf", tipo:"pdf", mod:"14/08/2025", tam:"420 KB"},
+      {nome:"Planta hidráulica.dwg", tipo:"file", mod:"01/08/2025", tam:"3,1 MB"}
+    ],
+    "planilhas-de-obra":[
+      {nome:"NOVO PLANO CONSTRUÇÕES.xlsx", tipo:"sheet", mod:"01/08/2025", tam:"1,8 MB"},
+      {nome:"Controle de material - maio.xlsx", tipo:"sheet", mod:"20/05/2025", tam:"640 KB"}
+    ],
+    "projetos":[
+      {nome:"Projeto arquitetônico - casa padrão.pdf", tipo:"pdf", mod:"20/07/2025", tam:"5,2 MB"},
+      {nome:"Render fachada.jpg", tipo:"image", mod:"18/07/2025", tam:"2,4 MB"}
+    ],
+    "terrenos":[
+      {nome:"Matrícula do terreno.pdf", tipo:"pdf", mod:"01/08/2025", tam:"540 KB"},
+      {nome:"Memorial de loteamento.pdf", tipo:"pdf", mod:"28/07/2025", tam:"310 KB"}
+    ]
+  };
+  var FILE_ICON = {
+    pdf:{bg:"#d03b3b", label:"PDF"}, sheet:{bg:"#0ca35a", label:"XLS"},
+    image:{bg:"#2a78d6", label:"IMG"}, file:{bg:"#8a8474", label:"DWG"}
+  };
+
+  function fmtBRL(n){
+    return "R$ " + n.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
+  }
+
+  function statusPill(status){
+    if(status === "Pago"){
+      return '<span class="pill good"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>Pago</span>';
+    }
+    return '<span class="pill warning"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Falta entregar</span>';
+  }
+  function catTag(tipo){
+    var color = CAT_COLOR[tipo] || "var(--ink-muted)";
+    return '<span class="tag" style="--tag-color:'+color+'"><i></i>'+tipo+'</span>';
+  }
+
+  function renderLotsTable(bodyId, withAction){
+    var rows = LOTS.map(function(l){
+      return '<tr><td><strong>Lote '+l.id+'</strong></td>'+
+        '<td class="num tabular">R$ '+l.custo+'</td>'+
+        '<td class="num tabular">R$ '+l.venda+'</td>'+
+        '<td class="num tabular">R$ '+l.lucro+'</td>'+
+        '<td>'+statusPill("Pago")+'</td>'+
+        (withAction ? '<td><button class="row-link" onclick="selectLot(\''+l.id+'\')">Ver parcelas</button></td>' : '<td><button class="row-link" onclick="showSub(\'obras\')">Ver obra</button></td>')+
+        '</tr>';
+    }).join("");
+    document.getElementById(bodyId).innerHTML = rows;
+  }
+
+  function renderLotChart(){
+    var maxVal = LOT_VENDA_NUM;
+    var chart = document.getElementById('lot-chart');
+    var html = "";
+    LOTS.forEach(function(l){
+      var hCusto = Math.round((LOT_CUSTO_NUM / maxVal) * 100);
+      var hVenda = Math.round((LOT_VENDA_NUM / maxVal) * 100);
+      html += '<div class="bar-group">'+
+        '<div class="bar" tabindex="0" style="height:'+hCusto+'%; background:var(--cat-1)" data-label="Lote '+l.id+' &middot; Custo" data-value="R$ '+l.custo+'"></div>'+
+        '<div class="bar" tabindex="0" style="height:'+hVenda+'%; background:var(--cat-2)" data-label="Lote '+l.id+' &middot; Valor de venda" data-value="R$ '+l.venda+'"></div>'+
+        '</div>';
+    });
+    chart.innerHTML = html;
+
+    var tip = document.getElementById('chart-tip');
+    var wrap = chart.parentElement;
+    chart.querySelectorAll('.bar').forEach(function(bar){
+      function showTip(){
+        tip.innerHTML = bar.getAttribute('data-label') + ': <b>' + bar.getAttribute('data-value') + '</b>';
+        var barRect = bar.getBoundingClientRect();
+        var wrapRect = wrap.getBoundingClientRect();
+        tip.style.left = (barRect.left - wrapRect.left + barRect.width/2) + 'px';
+        tip.style.top = (barRect.top - wrapRect.top - 8) + 'px';
+        tip.hidden = false;
+      }
+      bar.addEventListener('mouseenter', showTip);
+      bar.addEventListener('focus', showTip);
+      bar.addEventListener('mouseleave', function(){ tip.hidden = true; });
+      bar.addEventListener('blur', function(){ tip.hidden = true; });
+    });
+  }
+
+  function renderCatBars(){
+    var max = Math.max.apply(null, CAT_TOTALS.map(function(c){return c.valor;}));
+    var html = CAT_TOTALS.map(function(c){
+      var pct = Math.round((c.valor/max)*100);
+      return '<div class="hbar-row">'+
+        '<span>'+c.tipo+'</span>'+
+        '<div class="hbar-track"><div class="hbar-fill" style="width:'+pct+'%; background:'+CAT_COLOR[c.tipo]+'"></div></div>'+
+        '<span class="val">'+fmtBRL(c.valor)+'</span>'+
+        '</div>';
+    }).join("");
+    document.getElementById('cat-bars').innerHTML = html;
+  }
+
+  function renderMateriais(){
+    var body = document.getElementById('materiais-body');
+    var searchVal = (document.getElementById('mat-search').value || "").toLowerCase();
+    var statusVal = document.getElementById('mat-status').value;
+    var tipoVal = document.getElementById('mat-tipo').value;
+    var rows = MATERIAIS.filter(function(m){
+      var okSearch = !searchVal || m.mat.toLowerCase().indexOf(searchVal) > -1 || m.forn.toLowerCase().indexOf(searchVal) > -1;
+      var okStatus = !statusVal || m.status === statusVal;
+      var okTipo = !tipoVal || m.tipo === tipoVal;
+      return okSearch && okStatus && okTipo;
+    }).map(function(m){
+      return '<tr><td><strong>'+m.mat+'</strong></td><td>'+m.un+'</td><td class="num tabular">'+m.qtd+'</td>'+
+        '<td>'+m.pedido+'</td><td>'+m.chegada+'</td><td>'+m.forn+'</td>'+
+        '<td class="num tabular">R$ '+m.valor+'</td><td>'+statusPill(m.status)+'</td><td>'+catTag(m.tipo)+'</td></tr>';
+    }).join("");
+    body.innerHTML = rows || '<tr><td colspan="9" style="text-align:center; color:var(--ink-muted); padding:26px;">Nenhum material encontrado com esses filtros.</td></tr>';
+  }
+  window.filterMateriais = renderMateriais;
+
+  function renderCustosIniciais(){
+    document.getElementById('custos-iniciais').innerHTML = CUSTOS_INICIAIS.map(function(c){
+      return '<tr><td>'+c.item+'</td><td class="num tabular">R$ '+c.valor+'</td></tr>';
+    }).join("");
+  }
+
+  var currentFolder = null;
+  function renderDocs(){
+    var crumb = document.getElementById('doc-breadcrumb');
+    var grid = document.getElementById('doc-folders');
+    var filesWrap = document.getElementById('doc-files-wrap');
+    if(!currentFolder){
+      crumb.innerHTML = '<button class="current">Documentos</button>';
+      grid.hidden = false; filesWrap.hidden = true;
+      grid.innerHTML = FOLDERS.map(function(f){
+        return '<button class="folder-card" onclick="openFolder(\''+f.id+'\')">'+
+          '<span class="folder-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg></span>'+
+          '<b>'+f.nome+'</b><span>'+f.itens+' itens &middot; atualizado '+f.mod+'</span>'+
+          '</button>';
+      }).join("");
+    } else {
+      var f = FOLDERS.find(function(x){return x.id === currentFolder;});
+      crumb.innerHTML = '<button onclick="openFolder(null)">Documentos</button><span>/</span><button class="current">'+f.nome+'</button>';
+      grid.hidden = true; filesWrap.hidden = false;
+      var files = FOLDER_FILES[currentFolder] || [];
+      document.getElementById('doc-files-body').innerHTML = files.map(function(file){
+        var icon = FILE_ICON[file.tipo];
+        return '<tr><td style="display:flex; align-items:center; gap:10px;">'+
+          '<span class="file-row-icon" style="background:'+icon.bg+'">'+icon.label.slice(0,1)+'</span>'+file.nome+
+          '</td><td>'+icon.label+'</td><td>'+file.mod+'</td><td class="num">'+file.tam+'</td>'+
+          '<td><button class="row-link" onclick="showToast(\'Abrir/baixar chega junto com o armazenamento real.\')">Abrir</button></td></tr>';
+      }).join("");
+    }
+  }
+  window.openFolder = function(id){ currentFolder = id; renderDocs(); };
+
+  var selectedLot = "11-01";
+  function renderLotSelect(){
+    document.getElementById('lot-select').innerHTML = LOTS.map(function(l){
+      return '<button class="lot-chip'+(l.id===selectedLot?' active':'')+'" onclick="selectLot(\''+l.id+'\')">Lote '+l.id+'</button>';
+    }).join("");
+    document.getElementById('lot-installments').innerHTML = INSTALLMENTS.map(function(i){
+      return '<tr><td>'+i.label+'</td><td class="num tabular">R$ '+i.valor+'</td><td>'+statusPill("Pago")+'</td></tr>';
+    }).join("");
+  }
+  window.selectLot = function(id){ selectedLot = id; renderLotSelect(); };
+
+  function safeGet(key){ try{ return localStorage.getItem(key); }catch(e){ return null; } }
+  function safeSet(key,val){ try{ localStorage.setItem(key,val); }catch(e){} }
+
+  window.go = function(route){
+    ["landing","login","cadastro","app"].forEach(function(r){
+      document.getElementById('view-'+r).hidden = (r !== route);
+    });
+    window.scrollTo(0,0);
+    if(route === 'app'){ safeSet('np_authed','1'); }
+  };
+
+  window.showSub = function(sub){
+    document.querySelectorAll('.subview').forEach(function(s){ s.hidden = (s.id !== 'sub-'+sub); });
+    document.querySelectorAll('.nav-item[data-sub]').forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-sub') === sub);
+    });
+    document.getElementById('sidebar').classList.remove('open');
+    safeSet('np_sub', sub);
+    window.scrollTo(0,0);
+  };
+
+  window.toggleSidebar = function(){ document.getElementById('sidebar').classList.toggle('open'); };
+
+  window.handleLogin = function(e){
+    e.preventDefault();
+    go('app');
+    showToast('Bem-vindo de volta! (fluxo de exemplo — sem verificação real ainda)');
+  };
+  window.handleCadastro = function(e){
+    e.preventDefault();
+    go('app');
+    showToast('Conta criada! (fluxo de exemplo — sem verificação real ainda)');
+  };
+  window.logout = function(){
+    safeSet('np_authed','');
+    go('landing');
+  };
+
+  var toastTimer = null;
+  window.showToast = function(msg){
+    var el = document.getElementById('toast');
+    el.textContent = msg;
+    el.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ el.hidden = true; }, 3200);
+  };
+
+  document.addEventListener('DOMContentLoaded', function(){
+    renderLotsTable('painel-lots', false);
+    renderLotsTable('obras-lots', true);
+    renderLotChart();
+    renderCatBars();
+    renderMateriais();
+    renderCustosIniciais();
+    renderDocs();
+    renderLotSelect();
+
+    if(safeGet('np_authed') === '1'){
+      go('app');
+      showSub(safeGet('np_sub') || 'painel');
+    }
+  });
+})();
+</script>
